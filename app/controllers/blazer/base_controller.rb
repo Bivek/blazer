@@ -1,5 +1,6 @@
 module Blazer
-  class BaseController < ApplicationController
+  class BaseController < ::ApplicationController
+    layout 'layouts/application'
     # skip filters
     filters = _process_action_callbacks.map(&:filter) - [:activate_authlogic]
     if Rails::VERSION::MAJOR >= 5
@@ -20,7 +21,7 @@ module Blazer
       before_action Blazer.before_action.to_sym
     end
 
-    layout "blazer/application"
+    #layout "blazer/application"
 
     private
 
@@ -98,6 +99,10 @@ module Blazer
       # do not inherit from ApplicationController - #120
       def default_url_options
         {}
+      end
+
+      def check_admin
+        redirect_to '/' unless current_user.admin?
       end
   end
 end

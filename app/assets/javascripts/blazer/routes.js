@@ -1,3 +1,4 @@
+var rootPath = '/insights/'
 var Routes = {
   run_queries_path: function() {
     return rootPath + "queries/run"

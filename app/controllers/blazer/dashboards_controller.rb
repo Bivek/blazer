@@ -1,6 +1,7 @@
 module Blazer
   class DashboardsController < BaseController
     before_action :set_dashboard, only: [:show, :edit, :update, :destroy, :refresh]
+    before_action :check_admin, only: [:index, :new, :create, :edit, :update, :destroy, :refresh]
 
     def index
       redirect_to root_path(filter: "dashboards")

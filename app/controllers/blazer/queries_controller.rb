@@ -1,6 +1,7 @@
 module Blazer
   class QueriesController < BaseController
     before_action :set_query, only: [:show, :edit, :update, :destroy, :refresh]
+    before_action :check_admin, except: [:show, :run, :cancel]
 
     def home
       if params[:filter] == "dashboards"

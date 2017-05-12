@@ -1,6 +1,6 @@
 <% blazer_title @query.name %>
 
-<div class="topbar">
+<div class="row">
   <div class="container">
     <div class="row" style="padding-top: 13px;">
       <div class="col-sm-9">
@@ -10,8 +10,7 @@
         </h3>
       </div>
       <div class="col-sm-3 text-right">
-        <%= link_to "Edit", edit_query_path(@query, variable_params), class: "btn btn-default", disabled: !@query.editable?(blazer_user) %>
-        <%= link_to "Fork", new_query_path(variable_params.merge(fork_query_id: @query.id, data_source: @query.data_source, name: @query.name)), class: "btn btn-info" %>
+        <%= link_to "Edit", edit_query_path(@query, variable_params), class: "btn btn-default", disabled: !@query.editable?(blazer_user) if current_user.admin? %>
 
         <% if !@error && @success %>
           <%= button_to "Download", run_queries_path(query_id: @query.id, format: "csv"), params: {statement: @statement}, class: "btn btn-primary" %>
@@ -23,7 +22,7 @@
 
 <div style="margin-bottom: 60px;"></div>
 
-<% if @sql_errors.any? %>
+<% if current_user.admin? && @sql_errors.any? %>
   <div class="alert alert-danger">
     <ul>
       <% @sql_errors.each do |message| %>
@@ -33,13 +32,14 @@
   </div>
 <% end %>
 
+
 <% if @query.description.present? %>
   <p><%= @query.description %></p>
 <% end %>
 
 <%= render partial: "blazer/variables", locals: {action: query_path(@query)} %>
 
-<pre id="code"><code><%= @statement %></code></pre>
+<pre id="code"><code><%= @statement if current_user.admin? %></code></pre>
 
 <% if @success %>
   <div id="results">

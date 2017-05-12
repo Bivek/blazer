@@ -1,6 +1,6 @@
 <% blazer_title @dashboard.name %>
 
-<div class="topbar">
+<div class="row">
   <div class="container">
     <div class="row" style="padding-top: 13px;">
       <div class="col-sm-9">
@@ -10,7 +10,7 @@
         </h3>
       </div>
       <div class="col-sm-3 text-right">
-        <%= link_to "Edit", edit_dashboard_path(@dashboard, variable_params), class: "btn btn-info" %>
+        <%= link_to "Edit", edit_dashboard_path(@dashboard, variable_params), class: "btn btn-info" if current_user.admin? %>
       </div>
     </div>
   </div>

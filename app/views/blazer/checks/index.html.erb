@@ -31,8 +31,8 @@
           </ul>
         </td>
         <td style="text-align: right; padding: 1px;">
-          <%= link_to "Edit", edit_check_path(check), class: "btn btn-info" %>
-          <%= link_to "Run Now", query_path(check.query), class: "btn btn-primary" %>
+          <%= link_to "Edit", edit_check_path(check), class: "btn btn-info" if current_user.admin? %>
+          <%= link_to "Run Now", query_path(check.query), class: "btn btn-primary" if current_user.admin? %>
         </td>
       </tr>
     <% end %>
